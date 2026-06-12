@@ -27,7 +27,7 @@ struct SettingsView: View {
             }
         }
         .sheet(isPresented: $showPrivacy) {
-            GaslightCasebookWebPanel(urlString: "https://example.com")
+            CaseLedgerWebPanel(urlString: "https://decisionjournal.org/click.php")
                 .edgesIgnoringSafeArea(.bottom)
                 .background(Ink.night.ignoresSafeArea())
         }
@@ -238,7 +238,7 @@ struct SettingsView: View {
     private var aboutCard: some View {
         VStack(spacing: 6) {
             GasLampIcon(size: 30, color: Ink.parchmentFaint)
-            Text("Gaslight Casebook")
+            Text("Case Ledger")
                 .font(Quill.serifBold(14))
                 .foregroundColor(Ink.parchmentDim)
             Text("Version 1.0 - all investigations are kept on this device only.")

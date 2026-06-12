@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "GA10000000000000000000A5"
-               BuildableName = "Gaslight Casebook.app"
-               BlueprintName = "Gaslight Casebook"
-               ReferencedContainer = "container:Gaslight Casebook.xcodeproj">
+               BuildableName = "Case Ledger.app"
+               BlueprintName = "Case Ledger"
+               ReferencedContainer = "container:Case Ledger.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "GA10000000000000000000A5"
-            BuildableName = "Gaslight Casebook.app"
-            BlueprintName = "Gaslight Casebook"
-            ReferencedContainer = "container:Gaslight Casebook.xcodeproj">
+            BuildableName = "Case Ledger.app"
+            BlueprintName = "Case Ledger"
+            ReferencedContainer = "container:Case Ledger.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,9 +61,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "GA10000000000000000000A5"
-            BuildableName = "Gaslight Casebook.app"
-            BlueprintName = "Gaslight Casebook"
-            ReferencedContainer = "container:Gaslight Casebook.xcodeproj">
+            BuildableName = "Case Ledger.app"
+            BlueprintName = "Case Ledger"
+            ReferencedContainer = "container:Case Ledger.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

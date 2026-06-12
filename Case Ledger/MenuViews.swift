@@ -84,7 +84,7 @@ struct MainMenuView: View {
                                 .frame(width: 120, height: 120)
                             GasLampIcon(size: 70, color: Ink.amberDim)
                         }
-                        Text("Gaslight Casebook")
+                        Text("Case Ledger")
                             .font(Quill.serifBold(30))
                             .foregroundColor(Ink.parchment)
                             .multilineTextAlignment(.center)
